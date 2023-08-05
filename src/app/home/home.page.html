@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Poké-table </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="pokemon && pokemon.length">
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"> Inbox </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-searchbar
+          label="Search..."
+          [debounce]="300"
+          (ionInput)="filterPokemonByName($event)"
+        ></ion-searchbar>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button (click)="exportToJson()">Export to JSON</ion-button>
+        <ion-button (click)="exportToCSV()">Export to CSV</ion-button>
+        <ion-button (click)="exportToXML()">Export to XML</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <table>
+    <tr>
+      <th>Icon</th>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Show</th>
+    </tr>
+    <tr *ngFor="let aPokemon of pokemon">
+      <td>
+        <img src="{{aPokemon.spriteUrl}}" alt="a pokemon sprite image" />
+      </td>
+      <td>{{aPokemon.entry_number }}</td>
+      <td>{{ aPokemon.pokemon_species.name }}</td>
+      <td>
+        <ion-button [routerLink]="'/pokemon/' + aPokemon.entry_number">
+          View Pokemon
+        </ion-button>
+      </td>
+    </tr>
+  </table>
+</ion-content>

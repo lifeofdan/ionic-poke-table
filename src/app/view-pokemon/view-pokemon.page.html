@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        [text]="getBackButtonText()"
+        defaultHref="/"
+      ></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="pokemon && pokemon.spriteUrl">
+  <ion-item>
+    <img src="{{pokemon.spriteUrl}}" alt="a pokemon sprite" width="100px" />
+    <ion-label class="ion-text-wrap">
+      <h2>Name: {{ pokemon.name }}</h2>
+      <p>Id: {{ pokemon.id }}</p>
+      <p>Height: {{ pokemon.height }}</p>
+      <p>Weight: {{ pokemon.weight }}</p>
+      <p>Capture Rate: {{ pokemon.capture_rate }}%</p>
+      <p>
+        Types:
+        <span *ngFor="let aType of pokemon.types">{{ aType.type.name }} </span>
+      </p>
+    </ion-label>
+  </ion-item>
+</ion-content>
